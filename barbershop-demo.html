@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGE Barbershop — Precision Cuts Since 1987</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --off-white: #F0EDE8;
+    --red: #D42B2B;
+    --steel: #2A2A2A;
+    --mid: #555;
+    --light: #8A8A8A;
+    --gold: #C9A84C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black); color: var(--off-white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: var(--black); border-bottom: 1px solid rgba(240,237,232,0.08);
+    padding: 0 60px; height: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 0.15em; color: var(--off-white);
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--light); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--off-white); }
+  .nav-book {
+    background: var(--red); color: var(--off-white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 10px 28px;
+    border: none; cursor: pointer; transition: background 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .nav-book:hover { background: #b82222; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; padding-top: 70px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px 80px 60px;
+    background: var(--black);
+    position: relative;
+  }
+  .hero-left::after {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--red), transparent);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .hero-badge::before {
+    content: ''; width: 32px; height: 2px; background: var(--red);
+  }
+  .hero-badge span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--red);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 9rem);
+    line-height: 0.88; letter-spacing: 0.02em;
+    color: var(--off-white); margin-bottom: 32px;
+  }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; letter-spacing: 0.12em;
+    color: var(--light); margin-bottom: 48px; line-height: 1.8;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-red {
+    background: var(--red); color: var(--off-white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.9rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 16px 40px; border: none; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: all 0.3s;
+  }
+  .btn-red:hover { background: #b82222; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: var(--off-white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 15px 40px; border: 1px solid rgba(240,237,232,0.25);
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--off-white); }
+  .hero-meta {
+    margin-top: 64px; display: flex; gap: 48px;
+    padding-top: 32px; border-top: 1px solid rgba(240,237,232,0.08);
+  }
+  .hero-meta-item { }
+  .hero-meta-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; color: var(--red); line-height: 1;
+  }
+  .hero-meta-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--light); margin-top: 4px;
+  }
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: var(--steel);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 600px;
+  }
+  .hero-right-content {
+    position: absolute; inset: 0;
+    background: 
+      linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12rem; opacity: 0.08;
+  }
+  .hero-barber-graphic {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .barber-pole {
+    width: 60px; height: 300px;
+    border-radius: 30px; overflow: hidden;
+    background: white; position: relative;
+    box-shadow: 0 0 60px rgba(212,43,43,0.3);
+  }
+  .barber-pole::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--red) 0px, var(--red) 20px,
+      white 20px, white 40px,
+      #1a4a8a 40px, #1a4a8a 60px,
+      white 60px, white 80px
+    );
+    animation: spin 4s linear infinite;
+    background-size: 100% 200px;
+  }
+  @keyframes spin {
+    from { background-position: 0 0; }
+    to { background-position: 0 200px; }
+  }
+  .scissors-display {
+    font-size: 4rem; opacity: 0.9;
+    animation: snip 2s ease-in-out infinite;
+  }
+  @keyframes snip {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--red); padding: 14px 0; overflow: hidden;
+  }
+  .ticker-inner {
+    display: flex; gap: 60px;
+    white-space: nowrap; animation: ticker 18s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.2em; color: var(--off-white);
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SERVICES */
+  .services { padding: 100px 60px; }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 12px;
+  }
+  .section-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem); letter-spacing: 0.05em;
+    line-height: 0.9;
+  }
+  .section-heading .alt { color: var(--red); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid rgba(240,237,232,0.08);
+  }
+  .service-item {
+    padding: 40px 36px;
+    border-right: 1px solid rgba(240,237,232,0.08);
+    border-bottom: 1px solid rgba(240,237,232,0.08);
+    position: relative; transition: background 0.3s;
+    cursor: pointer;
+  }
+  .service-item:hover { background: rgba(212,43,43,0.06); }
+  .service-item:nth-child(3n) { border-right: none; }
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: rgba(212,43,43,0.15);
+    position: absolute; top: 20px; right: 24px; line-height: 1;
+  }
+  .service-icon { font-size: 1.8rem; margin-bottom: 16px; }
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.35rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .service-desc {
+    font-family: 'Barlow', sans-serif; font-weight: 300;
+    font-size: 0.9rem; color: var(--light); line-height: 1.6; margin-bottom: 20px;
+  }
+  .service-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--red); letter-spacing: 0.05em;
+  }
+  .service-duration {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--light); margin-top: 4px;
+  }
+
+  /* BOOKING */
+  .booking { padding: 100px 60px; background: var(--steel); }
+  .booking-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+  .booking-info { }
+  .booking-info h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,5vw,5rem); line-height: 0.9; margin-bottom: 24px; }
+  .booking-info h2 span { color: var(--red); }
+  .booking-info p { font-family: 'Barlow', sans-serif; font-weight: 300; color: var(--light); line-height: 1.7; margin-bottom: 40px; }
+  .barber-list { display: flex; flex-direction: column; gap: 2px; }
+  .barber-card {
+    display: flex; align-items: center; gap: 20px;
+    padding: 20px 24px; background: rgba(240,237,232,0.03);
+    border: 1px solid rgba(240,237,232,0.06);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .barber-card:hover, .barber-card.selected {
+    background: rgba(212,43,43,0.1); border-color: rgba(212,43,43,0.3);
+  }
+  .barber-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; background: rgba(240,237,232,0.05);
+    flex-shrink: 0;
+  }
+  .barber-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; }
+  .barber-spec { font-size: 0.8rem; color: var(--light); margin-top: 2px; }
+  .barber-rating { margin-left: auto; color: var(--gold); font-size: 0.85rem; }
+  .booking-form { background: rgba(240,237,232,0.03); border: 1px solid rgba(240,237,232,0.08); padding: 48px 40px; }
+  .form-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 32px; letter-spacing: 0.05em; }
+  .form-field { margin-bottom: 20px; }
+  .form-field label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--light); margin-bottom: 8px; }
+  .form-field input, .form-field select {
+    width: 100%; padding: 14px 16px;
+    background: rgba(240,237,232,0.05);
+    border: 1px solid rgba(240,237,232,0.1);
+    color: var(--off-white); font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+    outline: none; transition: border-color 0.3s; -webkit-appearance: none;
+  }
+  .form-field input:focus, .form-field select:focus { border-color: var(--red); }
+  .form-field select option { background: #1a1a1a; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+  .time-slot {
+    padding: 10px 8px; text-align: center;
+    background: rgba(240,237,232,0.03);
+    border: 1px solid rgba(240,237,232,0.1);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.1em;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .time-slot:hover, .time-slot.active { background: var(--red); border-color: var(--red); color: white; }
+  .time-slot.taken { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+  .book-btn {
+    width: 100%; padding: 18px;
+    background: var(--red); color: var(--off-white);
+    border: none; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    transition: background 0.3s; margin-top: 24px;
+  }
+  .book-btn:hover { background: #b82222; }
+
+  /* GALLERY */
+  .gallery { padding: 100px 60px; }
+  .gallery h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,5vw,5rem); margin-bottom: 48px; }
+  .gallery h2 span { color: var(--red); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 220px 220px; gap: 3px; }
+  .gallery-item {
+    overflow: hidden; position: relative;
+    background: var(--steel); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s;
+  }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:hover { transform: scale(0.98); }
+  .gallery-item::before { 
+    font-size: 4rem; opacity: 0.15;
+    transition: opacity 0.3s, font-size 0.3s;
+  }
+  .gallery-item:hover::before { opacity: 0.25; font-size: 5rem; }
+  .gallery-item:nth-child(1)::before { content: '✂️'; font-size: 7rem; }
+  .gallery-item:nth-child(2)::before { content: '💈'; }
+  .gallery-item:nth-child(3)::before { content: '🪒'; }
+  .gallery-item:nth-child(4)::before { content: '💇'; }
+  .gallery-item:nth-child(5)::before { content: '🧴'; }
+  .gallery-bg-1 { background: linear-gradient(135deg, #1a1a1a, #2d1a1a); }
+  .gallery-bg-2 { background: linear-gradient(135deg, #1a1a1a, #1a2d1a); }
+  .gallery-bg-3 { background: linear-gradient(135deg, #2d1a1a, #1a1a1a); }
+  .gallery-bg-4 { background: linear-gradient(135deg, #1a2a2d, #1a1a1a); }
+  .gallery-bg-5 { background: linear-gradient(135deg, #2a1a2d, #1a1a1a); }
+  .gallery-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,237,232,0.7);
+  }
+
+  /* MAP */
+  .location { padding: 100px 60px 60px; background: var(--steel); }
+  .location-inner { max-width: 1200px; margin: 0 auto; }
+  .location-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,5vw,5rem); margin-bottom: 48px; }
+  .location-inner h2 span { color: var(--red); }
+  .location-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+  .location-details { display: flex; flex-direction: column; gap: 28px; }
+  .loc-item { display: flex; gap: 16px; align-items: flex-start; }
+  .loc-icon { font-size: 1.4rem; min-width: 36px; margin-top: 2px; }
+  .loc-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+  .loc-val { font-family: 'Barlow', sans-serif; font-weight: 300; color: var(--off-white); line-height: 1.7; }
+  .map-frame { position: relative; height: 380px; }
+  .map-frame iframe { width: 100%; height: 100%; filter: grayscale(80%) contrast(1.1); border: none; }
+  .map-overlay {
+    position: absolute; bottom: 20px; left: 20px;
+    background: var(--black); padding: 16px 20px;
+    border-left: 3px solid var(--red);
+  }
+  .map-overlay strong { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; display: block; margin-bottom: 4px; }
+  .map-overlay p { font-size: 0.8rem; color: var(--light); }
+
+  /* REVIEWS */
+  .reviews { padding: 100px 60px; }
+  .reviews-header { margin-bottom: 60px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .review-card {
+    background: rgba(240,237,232,0.02);
+    border: 1px solid rgba(240,237,232,0.05);
+    padding: 36px 32px; transition: background 0.3s;
+  }
+  .review-card:hover { background: rgba(212,43,43,0.05); }
+  .review-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; }
+  .review-text { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(240,237,232,0.75); line-height: 1.7; margin-bottom: 24px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(212,43,43,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .reviewer-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.05em; }
+  .reviewer-meta { font-size: 0.75rem; color: var(--light); margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    background: #050505; padding: 60px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px; border-top: 1px solid rgba(240,237,232,0.05);
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.1em; margin-bottom: 16px; }
+  .footer-logo span { color: var(--red); }
+  .footer-tagline { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 0.9rem; color: var(--light); line-height: 1.7; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 0.9rem; color: var(--light); text-decoration: none; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--off-white); }
+  .footer-bottom { background: #050505; padding: 20px 60px; border-top: 1px solid rgba(240,237,232,0.05); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--mid); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 30px; right: 30px; z-index: 300; background: var(--red); color: var(--off-white); padding: 16px 28px; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 0.1em; transform: translateY(100px); opacity: 0; transition: all 0.4s ease; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">FORGE<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#booking">Book</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span>Precision Barbershop Since 1987</span></div>
+    <h1 class="hero-title">Sharp<br>Never<br>Settle.</h1>
+    <p class="hero-sub">Walk in as a regular.<br>Walk out looking like a legend.<br>That's the FORGE promise.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-red">Book Your Cut</a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">37+</div>
+        <div class="hero-meta-label">Years in Business</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">4.9★</div>
+        <div class="hero-meta-label">Google Rating</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">12K+</div>
+        <div class="hero-meta-label">Happy Clients</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-content">✂</div>
+    <div class="hero-barber-graphic">
+      <div class="barber-pole"></div>
+      <div class="scissors-display">✂️</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>✂ PRECISION CUTS</span>
+    <span>💈 HOT TOWEL SHAVES</span>
+    <span>🧴 BEARD SCULPTING</span>
+    <span>✂ KIDS CUTS</span>
+    <span>💈 FADE SPECIALISTS</span>
+    <span>🧴 SCALP TREATMENTS</span>
+    <span>✂ PRECISION CUTS</span>
+    <span>💈 HOT TOWEL SHAVES</span>
+    <span>🧴 BEARD SCULPTING</span>
+    <span>✂ KIDS CUTS</span>
+    <span>💈 FADE SPECIALISTS</span>
+    <span>🧴 SCALP TREATMENTS</span>
+  </div>
+</div>
+
+<section id="services" class="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-heading">Our <span class="alt">Services</span></h2>
+    </div>
+    <a href="#booking" class="btn-red">Book Any Service</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <div class="service-icon">✂️</div>
+      <div class="service-name">Classic Cut</div>
+      <div class="service-desc">Scissor or clipper precision cut tailored to your head shape and style. Includes wash and styling.</div>
+      <div class="service-price">$35</div>
+      <div class="service-duration">45 MIN</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div class="service-icon">🪒</div>
+      <div class="service-name">Hot Towel Shave</div>
+      <div class="service-desc">Traditional straight razor shave with pre-shave oil, hot towels, and post-shave balm.</div>
+      <div class="service-price">$45</div>
+      <div class="service-duration">50 MIN</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div class="service-icon">💈</div>
+      <div class="service-name">Cut + Shave Combo</div>
+      <div class="service-desc">The full experience. Precision haircut followed by a luxurious straight razor shave.</div>
+      <div class="service-price">$70</div>
+      <div class="service-duration">90 MIN</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">04</div>
+      <div class="service-icon">🧔</div>
+      <div class="service-name">Beard Sculpt</div>
+      <div class="service-desc">Line-up, shape, and define your beard. Includes hot towel and conditioning treatment.</div>
+      <div class="service-price">$30</div>
+      <div class="service-duration">35 MIN</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">05</div>
+      <div class="service-icon">👦</div>
+      <div class="service-name">Kid's Cut</div>
+      <div class="service-desc">Patient, fun cut for ages 12 and under. We make it stress-free for kids and parents alike.</div>
+      <div class="service-price">$25</div>
+      <div class="service-duration">30 MIN</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">06</div>
+      <div class="service-icon">🌿</div>
+      <div class="service-name">Scalp Treatment</div>
+      <div class="service-desc">Deep-cleanse scalp massage with essential oils. Detoxifies and promotes healthy hair growth.</div>
+      <div class="service-price">$55</div>
+      <div class="service-duration">60 MIN</div>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="booking-inner">
+    <div class="booking-info">
+      <div class="section-eyebrow">Online Booking</div>
+      <h2>Book Your <span>Session</span></h2>
+      <p>Skip the wait. Choose your barber, pick your time, show up ready. We'll handle the rest.</p>
+      <div class="barber-list">
+        <div class="barber-card selected" onclick="selectBarber(this)">
+          <div class="barber-avatar">💈</div>
+          <div>
+            <div class="barber-name">Tony Reyes</div>
+            <div class="barber-spec">Fades · Skin Taper · Beards</div>
+          </div>
+          <div class="barber-rating">★ 4.9</div>
+        </div>
+        <div class="barber-card" onclick="selectBarber(this)">
+          <div class="barber-avatar">✂️</div>
+          <div>
+            <div class="barber-name">Marcus Webb</div>
+            <div class="barber-spec">Classic Cuts · Hot Shaves</div>
+          </div>
+          <div class="barber-rating">★ 4.8</div>
+        </div>
+        <div class="barber-card" onclick="selectBarber(this)">
+          <div class="barber-avatar">🪒</div>
+          <div>
+            <div class="barber-name">Diego Santos</div>
+            <div class="barber-spec">Textured Hair · Straight Razor</div>
+          </div>
+          <div class="barber-rating">★ 5.0</div>
+        </div>
+        <div class="barber-card" onclick="selectBarber(this)">
+          <div class="barber-avatar">💇</div>
+          <div>
+            <div class="barber-name">Any Available</div>
+            <div class="barber-spec">Earliest available slot</div>
+          </div>
+          <div class="barber-rating">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form">
+      <div class="form-title">YOUR DETAILS</div>
+      <div class="form-row-2">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" placeholder="Carlos">
+        </div>
+        <div class="form-field">
+          <label>Last Name</label>
+          <input type="text" placeholder="Martinez">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Phone</label>
+        <input type="tel" placeholder="(555) 000-0000">
+      </div>
+      <div class="form-field">
+        <label>Service</label>
+        <select>
+          <option>Classic Cut — $35</option>
+          <option>Hot Towel Shave — $45</option>
+          <option>Cut + Shave Combo — $70</option>
+          <option>Beard Sculpt — $30</option>
+          <option>Kid's Cut — $25</option>
+          <option>Scalp Treatment — $55</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Date</label>
+        <input type="date">
+      </div>
+      <div class="form-field">
+        <label>Available Times</label>
+        <div class="time-slots">
+          <div class="time-slot taken">9:00</div>
+          <div class="time-slot taken">9:30</div>
+          <div class="time-slot active" onclick="selectTime(this)">10:00</div>
+          <div class="time-slot" onclick="selectTime(this)">10:30</div>
+          <div class="time-slot" onclick="selectTime(this)">11:00</div>
+          <div class="time-slot taken">11:30</div>
+          <div class="time-slot" onclick="selectTime(this)">12:00</div>
+          <div class="time-slot" onclick="selectTime(this)">12:30</div>
+          <div class="time-slot taken">1:00</div>
+          <div class="time-slot" onclick="selectTime(this)">1:30</div>
+          <div class="time-slot" onclick="selectTime(this)">2:00</div>
+          <div class="time-slot" onclick="selectTime(this)">2:30</div>
+        </div>
+      </div>
+      <button class="book-btn" onclick="submitBooking()">CONFIRM BOOKING →</button>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="gallery">
+  <h2>Our <span>Work</span></h2>
+  <div class="gallery-grid">
+    <div class="gallery-item gallery-bg-1"><div class="gallery-label">Skin Fade</div></div>
+    <div class="gallery-item gallery-bg-2"><div class="gallery-label">Hot Shave</div></div>
+    <div class="gallery-item gallery-bg-3"><div class="gallery-label">Straight Razor</div></div>
+    <div class="gallery-item gallery-bg-4"><div class="gallery-label">Beard Sculpt</div></div>
+    <div class="gallery-item gallery-bg-5"><div class="gallery-label">Classic Taper</div></div>
+  </div>
+</section>
+
+<section id="location" class="location">
+  <div class="location-inner">
+    <h2>Find <span>Us</span></h2>
+    <div class="location-grid">
+      <div class="location-details">
+        <div class="loc-item">
+          <div class="loc-icon">📍</div>
+          <div>
+            <div class="loc-label">Address</div>
+            <div class="loc-val">88 Main Street<br>Midtown District<br>Chicago, IL 60601</div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">🕐</div>
+          <div>
+            <div class="loc-label">Hours</div>
+            <div class="loc-val">Mon–Fri: 9 AM – 8 PM<br>Saturday: 8 AM – 6 PM<br>Sunday: 10 AM – 4 PM</div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">📞</div>
+          <div>
+            <div class="loc-label">Contact</div>
+            <div class="loc-val">(555) 441-7700<br>forge@barbershop.com</div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">🚇</div>
+          <div>
+            <div class="loc-label">Getting Here</div>
+            <div class="loc-val">Red Line: Grand Stop (2 min walk)<br>Street parking on Main St<br>Blue Line: Chicago Stop (5 min)</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969!2d-87.6298!3d41.8827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDUyJzU3LjciTiA4N8KwMzcnNDcuMyJX!5e0!3m2!1sen!2sus!4v1234"
+          allowfullscreen="" loading="lazy">
+        </iframe>
+        <div class="map-overlay">
+          <strong>FORGE BARBERSHOP</strong>
+          <p>88 Main Street, Chicago · (555) 441-7700</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="reviews-header">
+    <div class="section-eyebrow">Client Reviews</div>
+    <h2 class="section-heading">What They <span style="color:var(--red)">Say</span></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Best fade in the city, no contest. Tony takes his time, actually listens, and the result is always exactly what I had in mind. Been coming here 6 years.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">🧔</div>
+        <div><div class="reviewer-name">ALEX G.</div><div class="reviewer-meta">Regular · 6 years</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">The hot towel shave alone is worth a trip. It's a ritual, not just a service. I walk out feeling 10 years younger every single time. Worth every penny.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">💈</div>
+        <div><div class="reviewer-name">MIKE T.</div><div class="reviewer-meta">Regular · 3 years</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Took my 7-year-old in and the team was so patient with him. He was nervous, left with a great cut AND a smile. FORGE has a customer for life in our family.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">👦</div>
+        <div><div class="reviewer-name">ROSA M.</div><div class="reviewer-meta">Family customer</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">FORGE<span>.</span></div>
+    <p class="footer-tagline">Precision cuts. Hot shaves. Real craft.<br>Chicago's most trusted barbershop since 1987.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#">Classic Cut</a></li>
+      <li><a href="#">Hot Towel Shave</a></li>
+      <li><a href="#">Beard Sculpt</a></li>
+      <li><a href="#">Kid's Cut</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Visit</h4>
+    <ul>
+      <li><a href="#">88 Main Street</a></li>
+      <li><a href="#">Chicago, IL 60601</a></li>
+      <li><a href="#">(555) 441-7700</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Follow</h4>
+    <ul>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Yelp</a></li>
+      <li><a href="#">Google</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 FORGE Barbershop. All rights reserved.</span>
+  <span>Privacy · Terms</span>
+</div>
+
+<div class="toast" id="toast">✓ Booking confirmed! Check your phone for details.</div>
+
+<script>
+function selectBarber(el) {
+  document.querySelectorAll('.barber-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function selectTime(el) {
+  document.querySelectorAll('.time-slot:not(.taken)').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function submitBooking() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+</script>
+</body>
+</html>
